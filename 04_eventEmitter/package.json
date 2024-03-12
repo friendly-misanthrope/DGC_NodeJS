@@ -1,0 +1,22 @@
+{
+  "name": "03_npm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index",
+    "dev": "nodemon index"
+  },
+  "author": "",
+  "license": "ISC",
+  "notes": {
+    "0": "Use Intl.DateTimeFormat instead of Date-FNS for date formatting"
+  },
+  "dependencies": {
+    "date-fns": "^3.3.1",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
