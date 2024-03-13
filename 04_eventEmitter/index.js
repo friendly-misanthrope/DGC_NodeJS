@@ -15,4 +15,4 @@ myEmitter.on('log', (msg) => {
 
 setTimeout(() => {
   myEmitter.emit('log', 'Log event emitted.')
-}, 2000);
+}, 1000);
