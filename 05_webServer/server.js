@@ -13,16 +13,37 @@ class Emitter extends EventEmitter {};
 // Initialize emitter object
 const myEmitter = new Emitter();
 
+// Event emitter 
+myEmitter.on('log', (msg, fileName) => {
+  logEvents(msg, fileName);
+});
+
 // Set port
 const PORT = process.env.PORT || 3500;
 
 const serveFile = async (filePath, contentType, res) => {
   try {
-    const data = await fsPromises.readFile(filePath, 'utf8');
-    res.writeHead(200, {'Content-Type': contentType})
-    res.end(data)
+    const rawData = await fsPromises.readFile(
+      filePath,
+      !contentType.includes('image') ?
+        'utf8'
+        : ''
+    );
+    const data = contentType === 'application/json' ? JSON.parse(rawData)
+      : rawData;
+    res.writeHead(
+      filePath.includes('404.html') ? 404
+        : 200,
+      {'Content-Type': contentType}
+      );
+    res.end(
+      contentType === 'application/json'
+        ? JSON.stringify(data)
+        : data
+    );
   } catch(e) {
-    console.error(e)
+    console.error(e);
+    myEmitter.emit('log', `${e.name}: ${e.message}`, 'errLog.txt');
     res.statusCode = 500;
     res.end();
   }
@@ -30,11 +51,10 @@ const serveFile = async (filePath, contentType, res) => {
 
 const server = http.createServer((req, res) => {
   console.log(req.url, req.method);
-
+  myEmitter.emit('log', `${req.url}\t${req.method}`, 'reqLog.txt');
   const extension = path.extname(req.url);
 
   let contentType;
-
   switch(extension) {
     case '.css':
       contentType = 'text/css';
@@ -101,17 +121,3 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
-
-
-
-
-
-//* add listener to log event when triggered
-// myEmitter.on('log', (msg) => {
-//   logEvents(msg);
-// });
-
-// setTimeout(() => {
-//   myEmitter.emit('log', 'Log event emitted.')
-// });
