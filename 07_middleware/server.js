@@ -1,8 +1,18 @@
 const express = require('express');
 const path = require('path');
 const PORT = process.env.PORT || 3500;
-
 const app = express();
+
+// MIDDLEWARE
+// Built-in
+// allows form data to be handled via URL
+app.use(express.urlencoded({ extended: false }));
+
+// allows handling of JSON data
+app.use(express.json());
+
+// allow serving of static files
+app.use(express.static(path.join(__dirname, 'public')));
 
 // HTTP routes & handlers
 app.get('^/$|/index(.html)?', (req, res) => {
@@ -19,6 +29,7 @@ app.get('/old-page(.html)?', (req, res) => {
 });
 
 app.get('/hello(.html)?', (req, res, next) => {
+  res.send("Hello, this is the hello page!");
   console.log('attempted to load hello.html');
 })
 
