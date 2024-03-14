@@ -1,0 +1,4 @@
+20240312	11:27:34	2430bbc0-5faf-43e3-9162-4e8a47ac9aaa	/new-page.html	GET
+20240312	11:27:34	740d8f90-3562-4936-a5c4-29f64ebd8bfb	/css/style.css	GET
+20240312	11:27:34	5deaa483-1cff-47ea-baf7-c912644d1299	/img/img1.jpg	GET
+20240312	11:29:03	0fe76b57-a150-4702-bf93-de3eef0c3e7a	/new-page.html	GET
