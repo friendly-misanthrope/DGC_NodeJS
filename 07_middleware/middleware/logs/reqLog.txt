@@ -1,0 +1,3 @@
+20240315	11:52:14	1df7b5ad-135b-4f3a-9c03-19da446169ed	GET	undefined	/new-page
+20240315	11:52:14	28b45ff2-1d8a-42a8-82a8-3e6f240394b6	GET	undefined	/css/style.css
+20240315	11:52:14	1c1fc111-5b13-4b7a-9071-cdcfac16d9ce	GET	undefined	/img/img1.jpg
