@@ -6,7 +6,6 @@ const cors = require('cors');
 const PORT = process.env.PORT || 3500;
 const app = express();
 
-
 /* CUSTOM MIDDLEWARE */
 // Event logger
 app.use(logger);
