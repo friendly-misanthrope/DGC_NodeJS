@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+// Retrieve data
 const data = {}
-
 data.employees = require('../../data/employees.json');
 
 // Index router
@@ -27,11 +27,11 @@ router.route('/')
     res.json({ "id": req.body.id });
   });
 
+// API endpoint for a specific employee 
 router.route('/:id')
   .get((req, res) => {
     res.json({"id": req.params.id});
   });
 
 
-
-module.exports = router
+module.exports = router;
