@@ -4,7 +4,7 @@ const path = require('path');
 const { logger } = require('./middleware/logEvents');
 const errorHandler = require('./middleware/errorHandler');
 const cors = require('cors');
-const corsOptions = require('./config/corsOptions')
+const corsOptions = require('./config/corsOptions');
 const PORT = process.env.PORT || 3500;
 const app = express();
 
