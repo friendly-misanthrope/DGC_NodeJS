@@ -3,11 +3,15 @@ const express = require('express');
 const path = require('path');
 const { logger } = require('./middleware/logEvents');
 const errorHandler = require('./middleware/errorHandler');
-require('./config/mongoose.config');
 const cors = require('cors');
 const corsOptions = require('./config/corsOptions')
 const PORT = process.env.PORT || 3500;
+
+// Instantiate app
 const app = express();
+
+// Connect to MongoDB
+require('./config/mongoose.config');
 
 /* CUSTOM MIDDLEWARE */
 // Event logger
