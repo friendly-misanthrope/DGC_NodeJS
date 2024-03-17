@@ -50,8 +50,6 @@ app.use('/', require('./routes/root'));
 app.use('/subdir', require('./routes/subdir'));
 
 
-
-
 // Custom 404 behavior
 app.all('/*', (req, res) => {
   res.status(404);
@@ -65,12 +63,10 @@ app.all('/*', (req, res) => {
   }
 });
 
-
 // Custom error handling
 app.use(errorHandler);
 
-
-/* LISTEN FOR INCOMING REQUESTS ON SPECIFIED PORT */
+// Listen for incoming requests on specified port
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
