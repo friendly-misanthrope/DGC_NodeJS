@@ -43,11 +43,13 @@ app.use(express.static(path.join(__dirname, '/public')));
 // subdir
 app.use('/subdir', express.static(path.join(__dirname, '/public')));
 
-/* ROUTERS */
+/* ROUTES */
 // index
 app.use('/', require('./routes/root'));
 // subdir
 app.use('/subdir', require('./routes/subdir'));
+// employees
+app.use('/employees', require('./routes/api/employees'));
 
 
 // Custom 404 behavior
