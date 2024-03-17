@@ -4,6 +4,7 @@ const path = require('path');
 const { logger } = require('./middleware/logEvents');
 const errorHandler = require('./middleware/errorHandler');
 const cors = require('cors');
+const corsOptions = require('./config/corsOptions')
 const PORT = process.env.PORT || 3500;
 const app = express();
 
@@ -13,20 +14,7 @@ app.use(logger);
 
 
 /* THIRD-PARTY MIDDLEWARE */
-// CORS whitelist
-const allowedDomains = ['http://www.mywebsite.com'];
-
 // CORS policy
-const corsOptions = {
-  origin: (reqOrigin, cb) => {
-    //TODO: Remove '!reqOrigin' check before deploying
-    !reqOrigin || allowedDomains.indexOf(reqOrigin) !== -1 ?
-      cb(null, true)
-      : cb(new Error("CORS policy has blocked this request"));
-  },
-
-  optionsSuccessStatus: 200
-}
 app.use(cors(corsOptions));
 
 
@@ -40,14 +28,10 @@ app.use(express.json());
 // Allow serving of static files to:
 // root dir
 app.use(express.static(path.join(__dirname, '/public')));
-// subdir
-app.use('/subdir', express.static(path.join(__dirname, '/public')));
 
 /* ROUTES */
 // index
 app.use('/', require('./routes/root'));
-// subdir
-app.use('/subdir', require('./routes/subdir'));
 // employees
 app.use('/employees', require('./routes/api/employees'));
 
