@@ -1,36 +1,28 @@
-// retrieve employees from 'database'
-const data = {}
-data.employees = require('../models/employees.json');
+
 
 const getAllEmployees = (req, res) => {
-  res.json(data.employees);
+  console.log('Get all employees');
 }
 
 const createEmployee = (req, res) => {
-  res.json({
-    "firstName": req.body.firstName,
-    "lastName": req.body.lastName
-  });
+  //!!! Don't forget to check DB for duplicates
+console.log('Create an employee');
 }
 
 const updateEmployee = (req, res) => {
-  res.json(
-    {
-      "firstName": req.body.firstName,
-      "lastName": req.body.lastName
-    });
+  console.log('Update an employee');
 }
 
 const deleteEmployee = (req, res) => {
-  res.json({ "id": req.body.id });
+  console.log('Delete an employee');
 }
 
 const getOneEmployee = (req, res) => {
-  res.json({"id": req.params.id});
+  console.log('Get an employee');
 }
 
 
-module.exports = { 
+module.exports = {
   getAllEmployees,
   createEmployee,
   updateEmployee,
