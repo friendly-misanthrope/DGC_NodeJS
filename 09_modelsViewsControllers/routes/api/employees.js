@@ -12,12 +12,13 @@ const {
 router.route('/')
   .get(getAllEmployees)
   .post(createEmployee)
-  .put(updateEmployee)
-  .delete(deleteEmployee);
+  .put(updateEmployee);
+  
 
 // API endpoint for a specific employee 
 router.route('/:id')
-  .get(getOneEmployee);
+  .get(getOneEmployee)
+  .delete(deleteEmployee);
 
 
 module.exports = router;
