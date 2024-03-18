@@ -27,5 +27,26 @@ const UserSchema = new Schema({
 
 module.exports = mongoose.model('user', UserSchema);
 
-// add a field in User representing an Employee object,
-// so 
+//* Mongoose Middleware
+// set virtual confirmPassword field to value in form input
+UserSchema.virtual('confirmPassword')
+  .get(() => this.confirmPassword)
+  .set((val) => this.confirmPassword = val);
+
+// Validate that passwords match
+UserSchema.pre('validate', (next) => {
+  if (this.password !== this.confirmPassword) {
+    this.invalidate('confirmPassword', 'Passwords must match');
+  }
+  next();
+});
+
+// Prior to saving user in DB, hash the PW and
+// overwrite the newUser.password with salted password hash
+UserSchema.pre('save', (next) => {
+  bcrypt.hash(this.password, 10)
+    .then((hash) => {
+      this.password = hash;
+    });
+  next();
+})
