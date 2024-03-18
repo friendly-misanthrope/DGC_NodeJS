@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
 
+
 const UserSchema = new Schema({
   username: {
     type: String,
@@ -19,6 +20,7 @@ const UserSchema = new Schema({
     // Instantiate EmployeeSchema object tying
     // the user to an employee instance
 }, { timestamps: true });
+
 
 //* Mongoose Middleware
 // set virtual confirmPassword field to value in form input
