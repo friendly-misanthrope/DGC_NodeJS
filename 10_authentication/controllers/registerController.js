@@ -13,8 +13,8 @@ const registerUser = async (req, res) => {
       const newUser = await Users.create(req.body);
       res.status(201).json({message: `${newUser.username} added to system`, user: newUser});
     }
-  } catch (e) {
-    res.status(500).json({message: `Could not add ${req.body.username}`, error: e});
+  } catch (err) {
+    res.status(400).json({message: `Could not add ${req.body.username}`, err});
   }
 }
 
