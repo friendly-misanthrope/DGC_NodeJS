@@ -14,7 +14,7 @@ const UserSchema = new Schema({
     type: String,
     required: [true, "Password is required"],
     minLength: [8, "Password must be at least 8 characters"],
-    maxLength: [32, "Password must be between 8 and 32 characters"]
+    // maxLength: [32, "Password must be between 8 and 32 characters"]
   }
   // ToDo:
     // Instantiate EmployeeSchema object tying

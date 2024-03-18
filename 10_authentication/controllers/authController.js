@@ -3,25 +3,28 @@ const bcrypt = require('bcrypt');
 
 const userLogin = async (req, res) => {
   // get user and password from login form
-  const { username, password } = req.body;
+  const { user, pwd } = req.body;
 
   // Check that both fields are present
-  if (!username || ! password) {
-    return res.status(400).json({message: 'Username and password are required'});
+  if (!user || !pwd) {
+    return res.status(400).json({ message: 'Username and password are required' });
   }
-  const foundUser = Users.find((u) => u.username === username);
-  if (!foundUser) {
-    return res.sendStatus(401);
-  }
-
-  // evaluate password
-  const pwMatch = await bcrypt.compare(password, foundUser.password);
-  if (pwMatch) {
-    // ToDo: Create JWT to use with protected API routes
-    res.json({message: `${foundUser} is now logged in.`})
-  } else {
-    res.sendStatus(401);
+  try {
+    // Check if provided username exists in DB
+    const foundUser = await Users.findOne({ username: user });
+    // If user isn't found, return 401 unauthorized
+    if (!foundUser) {
+      return res.status(401);
+    }
+    // If passwords match, log user in
+    const pwMatch = await bcrypt.compare(pwd, foundUser.password);
+    if (pwMatch) {
+      // JWT auth goes here
+      res.json({message: `User ${foundUser.username} logged in successfully.`});
+    }
+  } catch(e) {
+    res.status(401).json({error: e});
   }
 }
 
-module.exports = { userLogin }
+module.exports = { userLogin };
