@@ -12,7 +12,10 @@ const EmployeeSchema = new mongoose.Schema({
     type: String,
     required: [true, "Employee last name is required"]
   },
-  roles: ["employee", "manager", "owner"]
+  empRoles: {
+    type: Array,
+    default: ["employee"]
+  }
 }, {timestamps: true});
 
 module.exports = mongoose.model('employee', EmployeeSchema);

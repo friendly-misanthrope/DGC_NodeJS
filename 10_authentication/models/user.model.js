@@ -14,18 +14,11 @@ const UserSchema = new Schema({
     required: [true, "Password is required"],
     minLength: [8, "Password must be at least 8 characters"],
     maxLength: [32, "Password must be between 8 and 32 characters"]
-  },
-  employee: {
-    type: Schema.Types.ObjectId,
-    ref: "Employee"
-  },
-  userRoles: {
-    type: Array,
-    default: ["employee"]
   }
-})
-
-module.exports = mongoose.model('user', UserSchema);
+  // ToDo:
+    // Instantiate EmployeeSchema object tying
+    // the user to an employee instance
+}, { timestamps: true });
 
 //* Mongoose Middleware
 // set virtual confirmPassword field to value in form input
@@ -43,10 +36,11 @@ UserSchema.pre('validate', (next) => {
 
 // Prior to saving user in DB, hash the PW and
 // overwrite the newUser.password with salted password hash
-UserSchema.pre('save', (next) => {
-  bcrypt.hash(this.password, 10)
-    .then((hash) => {
-      this.password = hash;
-    });
-  next();
+UserSchema.pre('save', async function(next) {
+  if (this.isModified('password')){
+    this.password = await bcrypt.hash(this.password, 12);
+    next();
+  }
 })
+
+module.exports = mongoose.model('user', UserSchema);
