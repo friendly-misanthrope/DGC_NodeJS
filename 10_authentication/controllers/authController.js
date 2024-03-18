@@ -3,13 +3,13 @@ const bcrypt = require('bcrypt');
 
 const userLogin = async (req, res) => {
   // get user and password from login form
-  const { user, password } = req.body;
+  const { username, password } = req.body;
 
   // Check that both fields are present
-  if (!user || ! password) {
+  if (!username || ! password) {
     return res.status(400).json({message: 'Username and password are required'});
   }
-  const foundUser = Users.find((u) => u.username === user);
+  const foundUser = Users.find((u) => u.username === username);
   if (!foundUser) {
     return res.sendStatus(401);
   }
