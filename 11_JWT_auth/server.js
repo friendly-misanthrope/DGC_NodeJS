@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const { logger } = require('./middleware/logEvents');
 const errorHandler = require('./middleware/errorHandler');
+const { verifyJWT } = require('./middleware/verifyJWT');
 const cors = require('cors');
 const corsOptions = require('./config/corsOptions')
 const PORT = process.env.PORT || 3500;
@@ -41,7 +42,9 @@ app.use('/', require('./routes/root'));
 app.use('/register', require('./routes/register'));
 // Login
 app.use('/auth', require('./routes/auth'));
+
 // employees
+app.use(verifyJWT)
 app.use('/employees', require('./routes/api/employees'));
 
 // Custom 404 behavior

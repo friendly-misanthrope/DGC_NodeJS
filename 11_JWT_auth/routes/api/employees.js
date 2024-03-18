@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+// const { verifyJWT } = require('../../middleware/verifyJWT');
+
 const { 
   getAllEmployees,
   createEmployee,
@@ -14,11 +16,9 @@ router.route('/')
   .post(createEmployee)
   .put(updateEmployee);
   
-
 // API endpoint for a specific employee 
 router.route('/:id')
   .get(getOneEmployee)
   .delete(deleteEmployee);
-
 
 module.exports = router;
