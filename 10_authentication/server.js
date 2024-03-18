@@ -37,9 +37,10 @@ app.use(express.static(path.join(__dirname, '/public')));
 /* ROUTES */
 // index
 app.use('/', require('./routes/root'));
+// register
+app.use('/register', require('./routes/api/register'));
 // employees
 app.use('/employees', require('./routes/api/employees'));
-
 
 // Custom 404 behavior
 app.all('/*', (req, res) => {

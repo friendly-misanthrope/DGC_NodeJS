@@ -21,3 +21,5 @@ const registerUser = async (req, res) => {
     res.status(500).json({message: `Could not add ${req.body.username}`, error: e});
   }
 }
+
+module.exports = registerUser;
