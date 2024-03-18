@@ -11,8 +11,8 @@ const EmployeeSchema = new mongoose.Schema({
   lastName: {
     type: String,
     required: [true, "Employee last name is required"]
-  }
+  },
+  roles: ["employee", "manager", "owner"]
 }, {timestamps: true});
 
-const Employee = mongoose.model('employee', EmployeeSchema);
-module.exports = Employee;
+module.exports = mongoose.model('employee', EmployeeSchema);
