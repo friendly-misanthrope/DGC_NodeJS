@@ -12,6 +12,7 @@ const userRefreshToken = async (req, res) => {
   
   // Create refresh token
   const refreshToken = cookies.jwt;
+  console.log(refreshToken);
 
   try {
     // Find user based on username in refresh token
