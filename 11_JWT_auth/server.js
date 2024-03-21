@@ -23,9 +23,9 @@ app.use(errorHandler);
 
 
 /* THIRD-PARTY MIDDLEWARE */
+app.use(cookieParser());
 // CORS policy
 app.use(cors(corsOptions));
-app.use(cookieParser());
 
 
 /* BUILT-IN EXPRESS MIDDLEWARE */
