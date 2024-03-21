@@ -25,13 +25,13 @@ const userRefreshToken = async (req, res) => {
       (err, decoded) => {
         if (err || foundUser.username !== decoded.username) {
           return res.sendStatus(403);
-          const accessToken = jwt.sign(
-            { "username": decoded.username },
-            process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: '5m' }
-          );
-          res.json({ accessToken });
         }
+        const accessToken = jwt.sign(
+          { "username": decoded.username },
+          process.env.ACCESS_TOKEN_SECRET,
+          { expiresIn: '5m' }
+        );
+        res.json({ accessToken });
       }
     )
   } catch(e) {
