@@ -18,6 +18,8 @@ require('./config/mongoose.config');
 /* CUSTOM MIDDLEWARE */
 // Event logger
 app.use(logger);
+// Custom error handling
+app.use(errorHandler);
 
 
 /* THIRD-PARTY MIDDLEWARE */
@@ -44,12 +46,14 @@ app.use('/', require('./routes/root'));
 app.use('/register', require('./routes/register'));
 // Login
 app.use('/auth', require('./routes/auth'));
-// Refresh Token
-app.use('/refresh', require('./routes/refresh'));
 
+
+/* PROTECTED ROUTES */
 // employees
 app.use(verifyJWT)
 app.use('/employees', require('./routes/api/employees'));
+// Refresh Token
+app.use('/refresh', require('./routes/refresh'));
 
 // Custom 404 behavior
 app.all('/*', (req, res) => {
@@ -64,8 +68,7 @@ app.all('/*', (req, res) => {
   }
 });
 
-// Custom error handling
-app.use(errorHandler);
+
 
 // Listen for incoming requests on specified port
 app.listen(PORT, () => {
