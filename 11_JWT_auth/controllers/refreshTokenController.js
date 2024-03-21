@@ -14,7 +14,7 @@ const userRefreshToken = async (req, res) => {
   const refreshToken = cookies.jwt;
 
   try {
-    // Find user based on username from req.cookies.jwt
+    // Find user based on username in refresh token
     const foundUser = await Users.findOne({ username: refreshToken.username });
     // If username from refreshToken isn't found in DB, rtn 401 unauthorized
     if (!foundUser) {
