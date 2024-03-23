@@ -11,9 +11,9 @@ const PORT = process.env.PORT || 3500;
 
 // Instantiate app
 const app = express();
-
 // Connect to MongoDB
 require('./config/mongoose.config');
+
 
 /* CUSTOM MIDDLEWARE */
 // Event logger
@@ -31,13 +31,12 @@ app.use(cors(corsOptions));
 /* BUILT-IN EXPRESS MIDDLEWARE */
 // Allows form data to be handled via URL
 app.use(express.urlencoded({ extended: false }));
-
 // Allows handling of JSON data
 app.use(express.json());
-
 // Allow serving of static files to:
 // root dir
 app.use(express.static(path.join(__dirname, '/public')));
+
 
 /* ROUTES */
 // index
@@ -46,16 +45,17 @@ app.use('/', require('./routes/root'));
 app.use('/register', require('./routes/register'));
 // Login
 app.use('/auth', require('./routes/auth'));
+// Refresh Token
+app.use('/refresh', require('./routes/refresh'));
 
 
 /* PROTECTED ROUTES */
 // employees
 app.use(verifyJWT)
 app.use('/employees', require('./routes/api/employees'));
-// Refresh Token
-app.use('/refresh', require('./routes/refresh'));
 
-// Custom 404 behavior
+
+/* CUSTOM 404 BEHAVIOR */
 app.all('/*', (req, res) => {
   res.status(404);
   if (req.accepts('html')) {
@@ -67,8 +67,6 @@ app.all('/*', (req, res) => {
     res.type('txt').send("404 Not Found");
   }
 });
-
-
 
 // Listen for incoming requests on specified port
 app.listen(PORT, () => {
