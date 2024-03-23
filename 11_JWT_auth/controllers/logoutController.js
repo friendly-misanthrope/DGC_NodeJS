@@ -20,7 +20,7 @@ const userLogout = async (req, res) => {
     // If username from refreshToken isn't found in DB, clear jwt cookie
     if (!foundUser) {
       res.clearCookie('jwt', { httpOnly: true });
-      return res.status(204);
+      return res.sendStatus(204);
     }
     
     // Delete refresh token from database

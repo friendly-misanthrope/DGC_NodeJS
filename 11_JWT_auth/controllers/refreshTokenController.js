@@ -11,7 +11,6 @@ const userRefreshToken = async (req, res) => {
   }
   // Create refresh token
   const refreshToken = cookies.jwt;
-
   try {
     // Decode refreshToken payload, save username
     const username = JSON.parse(atob(refreshToken.split('.')[1])).username;
@@ -20,7 +19,7 @@ const userRefreshToken = async (req, res) => {
     // If username from refreshToken isn't found in DB, rtn 401 unauthorized
     if (!foundUser) {
       // Send status unauthorized
-      return res.status(401);
+      return res.sendStatus(401);
     }
     // Verify refresh token with private key
     jwt.verify(
