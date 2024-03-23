@@ -51,9 +51,6 @@ app.use('/refresh', require('./routes/refresh'));
 app.use('/logout', require('./routes/logout'));
 
 
-
-
-
 /* CUSTOM 404 BEHAVIOR */
 app.all('/*', (req, res) => {
   res.status(404);
@@ -67,10 +64,12 @@ app.all('/*', (req, res) => {
   }
 });
 
+
 /* PROTECTED ROUTES */
 // employees
 app.use(verifyJWT)
 app.use('/employees', require('./routes/api/employees'));
+
 
 // Listen for incoming requests on specified port
 app.listen(PORT, () => {
