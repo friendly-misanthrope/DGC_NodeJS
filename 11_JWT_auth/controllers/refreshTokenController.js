@@ -7,7 +7,7 @@ const userRefreshToken = async (req, res) => {
   const cookies = req.cookies;
   // If no cookies or no JWT, rtn 401 unauthorized
   if (!cookies?.jwt) {
-    return res.status(401);
+    return res.sendStatus(401);
   }
   // Create refresh token
   const refreshToken = cookies.jwt;
@@ -19,6 +19,7 @@ const userRefreshToken = async (req, res) => {
     const foundUser = await Users.findOne({ username: username });
     // If username from refreshToken isn't found in DB, rtn 401 unauthorized
     if (!foundUser) {
+      // Send status unauthorized
       return res.status(401);
     }
     // Verify refresh token with private key
@@ -43,7 +44,7 @@ const userRefreshToken = async (req, res) => {
     )
     // error handling
   } catch(e) {
-    res.status(401).json({error: e});
+    res.status(500).json({error: e});
   }
 }
 

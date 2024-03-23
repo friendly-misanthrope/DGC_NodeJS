@@ -47,6 +47,8 @@ app.use('/register', require('./routes/register'));
 app.use('/auth', require('./routes/auth'));
 // Refresh Token
 app.use('/refresh', require('./routes/refresh'));
+// Logout
+app.use('/logout', require('./routes/logout'));
 
 
 /* PROTECTED ROUTES */

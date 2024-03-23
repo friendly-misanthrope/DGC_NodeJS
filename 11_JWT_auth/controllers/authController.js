@@ -50,7 +50,7 @@ const userLogin = async (req, res) => {
     }
     // error handling
   } catch(e) {
-    res.status(401).json({error: e});
+    res.status(500).json({error: e});
   }
 }
 
