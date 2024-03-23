@@ -51,10 +51,7 @@ app.use('/refresh', require('./routes/refresh'));
 app.use('/logout', require('./routes/logout'));
 
 
-/* PROTECTED ROUTES */
-// employees
-app.use(verifyJWT)
-app.use('/employees', require('./routes/api/employees'));
+
 
 
 /* CUSTOM 404 BEHAVIOR */
@@ -69,6 +66,11 @@ app.all('/*', (req, res) => {
     res.type('txt').send("404 Not Found");
   }
 });
+
+/* PROTECTED ROUTES */
+// employees
+app.use(verifyJWT)
+app.use('/employees', require('./routes/api/employees'));
 
 // Listen for incoming requests on specified port
 app.listen(PORT, () => {
