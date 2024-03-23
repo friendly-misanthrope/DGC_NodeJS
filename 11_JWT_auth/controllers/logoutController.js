@@ -29,7 +29,7 @@ const userLogout = async (req, res) => {
       {username: username},
       { currentUser }
     );
-    res.clearCookie('jwt', { httpOnly: true }) // add { secure: true } in prod
+    res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true  }) // add { secure: true } in prod
     .sendStatus(204) 
     // error handling
   } catch(e) {
