@@ -50,25 +50,23 @@ app.use('/refresh', require('./routes/refresh'));
 // Logout
 app.use('/logout', require('./routes/logout'));
 
-
-/* CUSTOM 404 BEHAVIOR */
-app.all('/*', (req, res) => {
-  res.status(404);
-  if (req.accepts('html')) {
-    res.sendFile(path.join(__dirname, 'views', '404.html'));
-  }
-  else if (req.accepts('json')) {
-    res.json({error: "404 Not Found"});
-  } else {
-    res.type('txt').send("404 Not Found");
-  }
-});
-
-
 /* PROTECTED ROUTES */
 // employees
-app.use(verifyJWT)
+app.use(verifyJWT);
 app.use('/employees', require('./routes/api/employees'));
+
+
+/* 404  */
+app.all('/*', (req, res) => {
+  if (req.accepts('html')) {
+    res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
+  }
+  else if (req.accepts('json')) {
+    res.status(404).json({error: "404 Not Found"});
+  } else {
+    res.status(404).type('txt').send("404 Not Found");
+  }
+});
 
 
 // Listen for incoming requests on specified port
