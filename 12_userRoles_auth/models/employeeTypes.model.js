@@ -5,7 +5,8 @@ const EmployeeTypesSchema = new mongoose.Schema({
   empRoles: {
     type: Array,
     default: [
-      // ToDo: require presence of empType && empCode to add custom employee type
+      // ToDo in Controller: require presence of empType && empCode to add custom employee type
+      // ToDo in controller: santize input data - empType should be string and empCode should be number
       { empType: "Employee", empCode: 1984 },
       { empType: "Manager", empCode: 4200 },
       { empType: "Owner", empCode: 6900 }
