@@ -16,4 +16,4 @@ const getAllEmployeeTypes = (req, res) => {
 
 module.exports = {
   getAllEmployeeTypes
-};
+}
