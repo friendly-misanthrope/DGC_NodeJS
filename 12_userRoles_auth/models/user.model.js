@@ -4,6 +4,18 @@ const Schema = mongoose.Schema;
 
 
 const UserSchema = new Schema({
+  firstName: {
+    type: String,
+    required: [true, "First name is required"],
+    minLength: [2, "First name must be at least 2 characters"],
+    maxLength: [32, "First name must be 32 characters or less"]
+  },
+  lastName: {
+    type: String,
+    required: [true, "Last name is required"],
+    minLength: [2, "Last name must be at least 2 characters"],
+    maxLength: [32, "Last name must be between 2 and 32 characters"]
+  },
   username: {
     type: String,
     required: [true, "Username is required"],
@@ -14,11 +26,9 @@ const UserSchema = new Schema({
     type: String,
     required: [true, "Password is required"],
     minLength: [8, "Password must be at least 8 characters"],
+    // ! Causes issues w/ bcrypt hashing && salting
     // maxLength: [32, "Password must be between 8 and 32 characters"]
   }
-  // ToDo:
-    // Instantiate EmployeeSchema object tying
-    // the user to an employee instance
 }, { timestamps: true });
 
 
