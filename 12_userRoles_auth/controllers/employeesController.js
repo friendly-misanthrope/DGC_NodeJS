@@ -17,16 +17,18 @@ const getAllEmployees = async (req, res) => {
 // Get one
 const getOneEmployee = async (req, res) => {
   try {
-    // Attempt to find employee by id in URL
-    await Employees.findOne({_id: req.params.id});
+    // Find employee by id in URL
+    const emp = await Employees.findById(req.params.id);
+    // Send status 200 ok && the employee json data
+    res.status(200).json(emp);
   } catch(e) {
-    res.status(400)
-    .json({
+    // If unable to get employee, send status 400
+    // && json with a message and the error
+    res.status(400).json({
       message: "Unable to get employee",
       error: e
     });
   }
-  
 }
 
 // Create
