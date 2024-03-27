@@ -14,15 +14,15 @@ const EmployeesSchema = new Schema({
     minLength: [2, "Last name must be at least 2 characters"],
     maxLength: [32, "Last name must be between 2 and 32 characters"]
   },
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  },
   userRoles: {
     type: Array,
     default: [
       { empType: "Employee", empCode: 1984 }
     ]
-  },
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "User"
   }
 }, { timestamps: true });
 

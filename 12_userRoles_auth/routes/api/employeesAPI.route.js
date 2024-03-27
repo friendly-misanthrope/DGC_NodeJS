@@ -10,15 +10,15 @@ const {
   getOneEmployee 
 } = require('../../controllers/employeesController');
 
-// Index router
+// Employees root router
 router.route('/')
   .get(getAllEmployees)
-  .post(createEmployee)
-  .put(updateEmployee);
+  .post(createEmployee);
   
 // API endpoint for a specific employee 
 router.route('/:id')
   .get(getOneEmployee)
-  .delete(deleteEmployee);
+  .delete(deleteEmployee)
+  .put(updateEmployee);
 
 module.exports = router;

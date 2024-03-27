@@ -16,7 +16,7 @@ const UsersSchema = new Schema({
     minLength: [8, "Password must be at least 8 characters"],
   },
   employee: {
-    type: Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId || null,
     ref: "Employee"
   }
 }, { timestamps: true });
