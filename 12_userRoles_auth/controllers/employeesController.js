@@ -4,13 +4,13 @@ const Employees = require('../models/employees.model');
 const getAllEmployees = async (req, res) => {
   try {
     const allEmployees = await Employees.find()
-    res.status(200).json(allEmployees)
+    res.status(200).json(allEmployees);
   } catch(e) {
     res.status(400)
     .json({
       message: "Unable to get all employees",
       error: e
-    })
+    });
   }
 }
 
@@ -18,13 +18,13 @@ const getAllEmployees = async (req, res) => {
 const getOneEmployee = async (req, res) => {
   try {
     // Attempt to find employee by id in URL
-    await Employees.findOne({_id: req.params.id})
+    await Employees.findOne({_id: req.params.id});
   } catch(e) {
     res.status(400)
     .json({
       message: "Unable to get employee",
       error: e
-    })
+    });
   }
   
 }
@@ -41,7 +41,7 @@ const createEmployee = async (req, res) => {
       // If employee already exists, send
       // '418 I'm A Teapot' and an error message
       res.status(418)
-      .json({error: "This employee already exists"})
+      .json({error: "This employee already exists"});
     } else {
       // Otherwise, create new employee && send it back in a 201 response
       const newEmployee = await Employees.create(req.body);
@@ -52,7 +52,7 @@ const createEmployee = async (req, res) => {
     res.status(400).json({
       message: "Employee could not be created",
       error: e
-    })
+    });
   }
 }
 
@@ -66,13 +66,13 @@ const updateEmployee = async (req, res) => {
       // Return updated employee,
       // Run Mongoose validations on update query
       {new: true, runValidators: true}
-    )
+    );
   } catch(e) {
     res.status(400)
     .json({
       message: "Failed to update employee",
       error: e
-    })
+    });
   }
 }
 
@@ -87,13 +87,13 @@ const deleteEmployee = async (req, res) => {
     .json({
       message: `Employee ${deletedEmployee.firstName} 
       ${deletedEmployee.lastName} has been removed`
-    })
+    });
   } catch(e) {
     res.status(400)
     .json({
       message: `Unable to delete employee`,
       error: e
-    })
+    });
   }
 }
 
