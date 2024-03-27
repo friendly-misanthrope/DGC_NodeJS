@@ -1,62 +1,107 @@
-// const Employees = require('../models/employee.model');
+const Employees = require('../models/employees.model');
 
-// const getAllEmployees = (req, res) => {
-//   Employees.find()
-//     .then((allEmployees) => {
-//       res.json(allEmployees);
-//     })
-//     .catch(err => console.log(err));
-// }
+// Get all
+const getAllEmployees = async (req, res) => {
+  try {
+    const allEmployees = await Employees.find()
+    res.status(200).json(allEmployees)
+  } catch(e) {
+    res.status(400)
+    .json({
+      message: "Unable to get all employees",
+      error: e
+    })
+  }
+}
 
-// const getOneEmployee = (req, res) => {
-//   Employees.findOne({_id: req.params.id})
-//     .then(emp => res.json(emp))
-//     .catch(err => res.json(err))
-// }
+// Get one
+const getOneEmployee = async (req, res) => {
+  try {
+    // Attempt to find employee by id in URL
+    await Employees.findOne({_id: req.params.id})
+  } catch(e) {
+    res.status(400)
+    .json({
+      message: "Unable to get employee",
+      error: e
+    })
+  }
+  
+}
 
-// const createEmployee = async (req, res) => {
-//   try {
-//     const potentialEmployee = await Employees.findOne({
-//       firstName: req.body.firstName,
-//       lastName: req.body.lastName
-//     })
-//     if (potentialEmployee) {
-//       res.status(418).json({error: "This employee already exists"})
-//     } else {
-//       const newEmployee = await Employees.create(req.body);
-//       res.status(201).json(newEmployee);
-//     }
-//   } catch(err) {
-//     console.log(err)
-//     res.status(400).json({error: err, message: "Employee could not be created"})
-//   }
-// }
+// Create
+const createEmployee = async (req, res) => {
+  try {
+    // Check if employee already exists in DB
+    const potentialEmployee = await Employees.findOne({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName
+    })
+    if (potentialEmployee) {
+      // If employee already exists, send
+      // '418 I'm A Teapot' and an error message
+      res.status(418)
+      .json({error: "This employee already exists"})
+    } else {
+      // Otherwise, create new employee && send it back in a 201 response
+      const newEmployee = await Employees.create(req.body);
+      res.status(201).json(newEmployee);
+    }
+  } catch(e) {
+    // If unable to create employee, send status 400 with a message and the error
+    res.status(400).json({
+      message: "Employee could not be created",
+      error: e
+    })
+  }
+}
 
-// const updateEmployee = (req, res) => {
-//   Employees.findOneAndUpdate(
-//     {_id: req.body._id},
-//     req.body,
-//     {new: true, runValidators: true}
-//   )
-//     .then(updatedEmployee => res.json(updatedEmployee))
-//     .catch((err) => {
-//       res.status(400).json({error: err, message: "Failed to update employee"})
-//     });
-// }
+// Update
+const updateEmployee = async (req, res) => {
+  try {
+    // Find one employee by id and update with req.body
+    await Employees.findOneAndUpdate(
+      {_id: req.body._id},
+      req.body,
+      // Return updated employee,
+      // Run Mongoose validations on update query
+      {new: true, runValidators: true}
+    )
+  } catch(e) {
+    res.status(400)
+    .json({
+      message: "Failed to update employee",
+      error: e
+    })
+  }
+}
 
-// const deleteEmployee = (req, res) => {
-//   Employees.deleteOne({_id: req.params.id})
-//     .then(result => res.json(result))
-//     .catch(err => res.status(400).json(err));
-// }
+// Delete
+const deleteEmployee = async (req, res) => {
+  try {
+    // Delete employee by id in URL
+    const deletedEmployee = await Employees.deleteOne({_id: req.params.id})
+    // Send status 200 ok && a message indicating
+    // that the employee has been deleted successfully
+    res.status(200)
+    .json({
+      message: `Employee ${deletedEmployee.firstName} 
+      ${deletedEmployee.lastName} has been removed`
+    })
+  } catch(e) {
+    res.status(400)
+    .json({
+      message: `Unable to delete employee`,
+      error: e
+    })
+  }
+}
 
 
-
-
-// module.exports = {
-//   getAllEmployees,
-//   getOneEmployee,
-//   createEmployee,
-//   updateEmployee,
-//   deleteEmployee
-// }
+module.exports = {
+  getAllEmployees,
+  getOneEmployee,
+  createEmployee,
+  updateEmployee,
+  deleteEmployee
+}
