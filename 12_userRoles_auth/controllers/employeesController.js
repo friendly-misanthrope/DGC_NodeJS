@@ -3,7 +3,7 @@ const Employees = require('../models/employees.model');
 // Get all
 const getAllEmployees = async (req, res) => {
   try {
-    const allEmployees = await Employees.find()
+    const allEmployees = await Employees.find();
     res.status(200).json(allEmployees);
   } catch(e) {
     res.status(400)
@@ -36,7 +36,7 @@ const createEmployee = async (req, res) => {
     const potentialEmployee = await Employees.findOne({
       firstName: req.body.firstName,
       lastName: req.body.lastName
-    })
+    });
     if (potentialEmployee) {
       // If employee already exists, send
       // '418 I'm A Teapot' and an error message
