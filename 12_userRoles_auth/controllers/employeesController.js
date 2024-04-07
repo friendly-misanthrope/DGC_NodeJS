@@ -7,7 +7,7 @@ const getAllEmployees = async (req, res) => {
     const allEmployees = await Employees.find();
     res.status(200).json(allEmployees);
   } catch (e) {
-    res.status(400)
+    res.status(500)
       .json({
         message: "Unable to get all employees",
         error: e
@@ -25,7 +25,7 @@ const getOneEmployee = async (req, res) => {
   } catch (e) {
     // If unable to get employee, send status 400
     // && json with a message and the error
-    res.status(400).json({
+    res.status(500).json({
       message: "Unable to get employee",
       error: e
     });
@@ -47,12 +47,10 @@ const createEmployee = async (req, res) => {
         .json({ error: "This employee already exists" });
     } else {
       // Otherwise, create new employee && send it back in a 201 response
-      // ToDo: tie employee to the creating user
       const { firstName, lastName, } = req.body;
       const newEmployee = await Employees.create({
         firstName: firstName,
-        lastName: lastName,
-        //! How do I assign userId here?
+        lastName: lastName
       });
       res.status(201).json(newEmployee);
     }

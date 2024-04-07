@@ -20,6 +20,7 @@ const EmployeesSchema = new Schema({
   },
   userRoles: {
     type: Array,
+    required: [true, "User must have an employee role assigned at registration"],
     default: [
       { empType: "Employee", empCode: 1984 }
     ]
