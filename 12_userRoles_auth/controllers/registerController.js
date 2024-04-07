@@ -32,14 +32,14 @@ const registerUser = async (req, res) => {
         })
       });
       // update user.employee.userId to newUser's _id
-      const createdUser = await Users.findOneAndUpdate(
-        {_id: newUser._id},
-        // set user.employee.userId to newUser's _id
-        { employee: {
-          userId: newUser._id
-        } },
-        { new: true}
-      )
+      // const createdUser = await Users.findOneAndUpdate(
+      //   {_id: newUser._id},
+      //   // set user.employee.userId to newUser's _id
+      //   { employee: {
+      //     userId: newUser._id
+      //   } },
+      //   { new: true}
+      // )
 
       // If user and employee were created successfully,
       // return 201 created && send new user object in response
