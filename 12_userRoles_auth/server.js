@@ -53,6 +53,8 @@ app.use('/logout', require('./routes/logout'));
 /* PROTECTED ROUTES */
 // employees
 app.use('/employees', verifyJWT, require('./routes/api/employeesAPI.route'));
+// users
+app.use('/users', verifyJWT, require('./routes/api/employeesAPI.route'));
 
 
 /* 404  */
