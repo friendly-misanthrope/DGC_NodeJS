@@ -15,9 +15,9 @@ const getAllUsersWithEmployee = async (req, res) => {
       return user;
     }));
     // Send status 200 ok with all users and their employees
-    res.status(200).json(allUsersWithEmployee)
+    res.status(200).json(allUsersWithEmployee);
   } catch (e) {
-    res.status(500).json({ message: "Unable to get all users with their employee" })
+    res.status(500).json({ message: "Unable to get all users with their employee" });
   }
 }
 
