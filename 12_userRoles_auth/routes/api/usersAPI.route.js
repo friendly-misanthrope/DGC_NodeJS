@@ -9,9 +9,10 @@ const {
 
 // Users root router
 router.route('/')
-  .get(getAllUsersWithEmployee);
+  .get(getAllUsers);
 
 router.route('/all')
-  .get(getAllUsers)
+  .get(getAllUsersWithEmployee);
+  
 
   module.exports = router;
