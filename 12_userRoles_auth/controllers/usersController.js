@@ -21,13 +21,38 @@ const getAllUsersWithEmployee = async (req, res) => {
   }
 }
 
-// Get All Users
+// ToDo: try/catch Get All Users
 const getAllUsers = async (req, res) => {
   res.status(200).json(await Users.find())
 }
 
+// ToDo: Get One User by id
+const getOneUser = async (req, res) => {
+  try {
+    const potentialUser = await Users.findOne({ _id: req.params.id });
+    if (!potentialUser) {
+      return res.status(404).json({ message: `No user with id ${req.params.id} found` })
+    }
+    res.status(200).json({ potentialUser })
+  } catch (e) {
+    res.status(500).json({message: "Unable to find user"})
+  }
+}
+
+// ToDo: Update a User by id
+const updateUser = (req, res) => {
+
+}
+
+
+
+
+
+
 // Export functions
 module.exports = {
   getAllUsers,
-  getAllUsersWithEmployee
+  getAllUsersWithEmployee,
+  getOneUser,
+  updateUser
 }
