@@ -6,10 +6,7 @@ const getAllUsersWithEmployee = async (req, res) => {
   try {
     // Query DB for users
     const users = await Users.find();
-    // If no users in DB, return 200 ok with a message stating that nothing was found
-    if (users.length < 1) {
-      return res.status(200).json({ message: "There are no users in the DB" })
-    }
+    // Map over all users
     const allUsersWithEmployee = await Promise.all(users.map(async (user) => {
       // Get employee object for current user
       const employeeObj = await Employees.findOne({ _id: user.employee });
