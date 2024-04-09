@@ -54,7 +54,7 @@ app.use('/logout', require('./routes/logout'));
 // employees
 app.use('/employees', verifyJWT, require('./routes/api/employeesAPI.route'));
 // users
-app.use('/users', verifyJWT, require('./routes/api/employeesAPI.route'));
+app.use('/users', verifyJWT, require('./routes/api/usersAPI.route'));
 
 
 /* 404  */
