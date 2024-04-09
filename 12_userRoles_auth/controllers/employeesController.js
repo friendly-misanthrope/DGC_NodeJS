@@ -36,9 +36,10 @@ const getOneEmployee = async (req, res) => {
 const createEmployee = async (req, res) => {
   try {
     // Check if employee already exists in DB
+    const { firstName, lastName, } = req.body;
     const potentialEmployee = await Employees.findOne({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName
+      firstName,
+      lastName
     });
     if (potentialEmployee) {
       // If employee already exists, send
@@ -47,10 +48,9 @@ const createEmployee = async (req, res) => {
         .json({ error: "This employee already exists" });
     } else {
       // Otherwise, create new employee && send it back in a 201 response
-      const { firstName, lastName, } = req.body;
       const newEmployee = await Employees.create({
-        firstName: firstName,
-        lastName: lastName
+        firstName,
+        lastName
       });
       res.status(201).json(newEmployee);
     }
