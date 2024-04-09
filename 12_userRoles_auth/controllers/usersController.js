@@ -1,7 +1,7 @@
 const Users = require('../models/users.model');
 const Employees = require('../models/employees.model');
 
-// Get All
+// Get All Users with their respective Employee instance
 const getAllUsersWithEmployee = async (req, res) => {
   try {
     // Query DB for users
@@ -21,9 +21,13 @@ const getAllUsersWithEmployee = async (req, res) => {
   }
 }
 
-
+// Get All Users
+const getAllUsers = async (req, res) => {
+  res.status(200).json(await Users.find())
+}
 
 // Export functions
 module.exports = {
+  getAllUsers,
   getAllUsersWithEmployee
 }
