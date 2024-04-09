@@ -21,9 +21,14 @@ const getAllUsersWithEmployee = async (req, res) => {
   }
 }
 
-// ToDo: try/catch Get All Users
+// Get All Users
 const getAllUsers = async (req, res) => {
-  res.status(200).json(await Users.find())
+  try {
+    res.status(200).json(await Users.find())
+  } catch (e) {
+    res.status(500).json({message: "Unable to get all users", e})
+  }
+  
 }
 
 // ToDo: Get One User by id
@@ -35,7 +40,7 @@ const getOneUser = async (req, res) => {
     }
     res.status(200).json({ potentialUser })
   } catch (e) {
-    res.status(500).json({message: "Unable to find user"})
+    res.status(500).json({message: "Unable to find user", e})
   }
 }
 
