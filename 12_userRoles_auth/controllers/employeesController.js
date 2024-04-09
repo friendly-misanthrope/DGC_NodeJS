@@ -18,7 +18,7 @@ const getAllEmployees = async (req, res) => {
 // Get one
 const getOneEmployee = async (req, res) => {
   try {
-    // Find employee by id in URL
+    // Find employee by id in URI
     const emp = await Employees.findById(req.params.id);
     // Send status 200 ok && the employee json data
     res.status(200).json(emp);

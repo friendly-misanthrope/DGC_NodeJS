@@ -1,7 +1,7 @@
 const Employees = require('../models/employees.model');
 const Users = require('../models/users.model');
 
-// Register user with new employee
+// Register user with new employee by default
 const registerUser = async (req, res) => {
   try {
     // Check if user attempting to be created already exists
@@ -13,13 +13,14 @@ const registerUser = async (req, res) => {
       // Return 409 conflict && an error message
       return res.status(409).json({ message: `${potentialUser.username} already exists.` });
     } else {
+      // otherwise, create new user from req.body
       const {
         username,
         password,
         confirmPassword,
         firstName,
         lastName } = req.body;
-      // otherwise, create new user from req.body
+
       const newUser = await Users.create({
         username,
         password,
@@ -36,7 +37,7 @@ const registerUser = async (req, res) => {
       res.status(201).json({ message: `${newUser.username} added to system`, newUser });
     }
   } catch (err) {
-    res.status(400).json({ message: `Could not add ${ username}`, err });
+    res.status(400).json({ message: `Could not add ${username}`, err });
   }
 }
 
