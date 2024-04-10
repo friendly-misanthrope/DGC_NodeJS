@@ -33,13 +33,12 @@ UsersSchema.pre('validate', function(next) {
     this.invalidate('confirmPassword', 'Passwords must match');
   }
   next();
-})
+});
 
 // Prior to saving user in DB, hash the PW and
 // overwrite the newUser.password with salted password hash
 UsersSchema.pre('save', async function(next) {
   if (this.isModified('password')){
-
     this.password = await bcrypt.hash(this.password, 12);
     next();
   }

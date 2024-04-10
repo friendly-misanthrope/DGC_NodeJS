@@ -5,7 +5,6 @@ const router = express.Router();
 const {
   getAllUsersWithEmployee,
   getAllUsers,
-  updateUser,
   getOneUser
 } = require('../../controllers/usersController');
 
@@ -17,8 +16,7 @@ router.route('/all')
   .get(getAllUsersWithEmployee);
   
 router.route('/:id')
-  .get(getOneUser)
-  .put(updateUser);
+  .get(getOneUser);
 
 
   

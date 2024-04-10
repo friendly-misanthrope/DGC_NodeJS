@@ -1,5 +1,6 @@
 const Users = require('../models/users.model');
 const Employees = require('../models/employees.model');
+const bcrypt = require('bcrypt');
 
 // Get All Users with their respective Employee instance
 const getAllUsersWithEmployee = async (req, res) => {
@@ -24,30 +25,43 @@ const getAllUsersWithEmployee = async (req, res) => {
 // Get All Users
 const getAllUsers = async (req, res) => {
   try {
-    res.status(200).json(await Users.find())
+    res.status(200).json(await Users.find());
   } catch (e) {
-    res.status(500).json({message: "Unable to get all users", e})
+    res.status(500).json({ message: "Unable to get all users", e });
   }
-  
+
 }
 
-// ToDo: Get One User by id
+// Get One User by id
 const getOneUser = async (req, res) => {
   try {
+    // ToDo: Validate that id in URL is a valid ObjectId
     const potentialUser = await Users.findOne({ _id: req.params.id });
     if (!potentialUser) {
-      return res.status(404).json({ message: `No user with id ${req.params.id} found` })
+      return res.status(404).json({ message: `No user with id ${req.params.id} found` });
     }
-    res.status(200).json({ potentialUser })
+    res.status(200).json(potentialUser);
   } catch (e) {
-    res.status(500).json({message: "Unable to find user", e})
+    res.status(400).json({ message: "Unable to find user", e });
   }
 }
 
-// ToDo: Update a User by id
-const updateUser = (req, res) => {
+// // ToDo: Update a User by id (CHANGE PASSWORD)
+// const updateUser = async (req, res) => {
+//   // Get current user by id
+//   // ToDo: Re-authenticate password before visiting pwChange route
+//   try {
+//     const potentialUser = await Users.findOneAndUpdate(
+//       { _id: req.params.id },
+//       {
+//         password: await bcrypt.hash(req.body.password, 12)
+//       }
+//     );
 
-}
+//   } catch (e) {
+//     res.status(400).json({ message: `Unable to update user ${potentialUser.username}` });
+//   }
+// }
 
 
 
@@ -58,6 +72,5 @@ const updateUser = (req, res) => {
 module.exports = {
   getAllUsers,
   getAllUsersWithEmployee,
-  getOneUser,
-  updateUser
+  getOneUser
 }
