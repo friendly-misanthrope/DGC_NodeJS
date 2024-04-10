@@ -14,6 +14,10 @@ const UsersSchema = new Schema({
     required: [true, "Password is required"],
     minLength: [8, "Password must be at least 8 characters"],
   },
+  resetLink: {
+    type: String,
+    default: ''
+  },
   employee: {
     type: Schema.Types.ObjectId || null,
     ref: "Employee"
