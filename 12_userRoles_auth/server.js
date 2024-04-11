@@ -5,8 +5,9 @@ const { logger } = require('./middleware/logEvents');
 const errorHandler = require('./middleware/errorHandler');
 const { verifyJWT } = require('./middleware/verifyJWT');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 const cors = require('cors');
-const corsOptions = require('./config/corsOptions')
+const corsOptions = require('./config/corsOptions');
 const PORT = process.env.PORT || 3500;
 
 // Instantiate app
@@ -26,6 +27,8 @@ app.use(errorHandler);
 app.use(cookieParser());
 // CORS policy
 app.use(cors(corsOptions));
+// body-parser
+app.use(bodyParser.urlencoded({extended: true}));
 
 
 /* BUILT-IN EXPRESS MIDDLEWARE */
@@ -49,6 +52,10 @@ app.use('/auth', require('./routes/auth'));
 app.use('/refresh', require('./routes/refresh'));
 // Logout
 app.use('/logout', require('./routes/logout'));
+// Forgot Password
+app.use('/forgotPassword', require('./routes/forgotPassword'));
+// Reset Password
+app.use('/resetPassword', require('./routes/resetPassword'));
 
 /* PROTECTED ROUTES */
 // employees

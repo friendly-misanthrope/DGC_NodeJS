@@ -4,8 +4,10 @@ const bcrypt = require('bcrypt');
 const mailer = require('nodemailer');
 require('dotenv').config();
 
-const resetPassword = async (req, res) => {
-
+const forgotPassword = async (req, res) => {
+  
 }
 
-module.exports = { resetPassword }
+module.exports = {
+  forgotPassword
+}
