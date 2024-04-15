@@ -4,9 +4,9 @@ const mailer = require('nodemailer');
 require('dotenv').config();
 
 const forgotPassword = async (req, res) => {
-  
-    // Get user based on email
-    const { email } = req.body;
+  const { email } = req.body;
+  // Get user based on email
+  try {
     const user = await Users.findOne({ email: email });
     // If no user in DB, return status 400 & error message
     if (!user) {
@@ -15,7 +15,7 @@ const forgotPassword = async (req, res) => {
     // Otherwise, generate a JWT reset token with email
     const resetToken = jwt.sign(
       { "email": user.email },
-      process.env.RESET_PASSWORD_SECRET + user.password,
+      process.env.RESET_PASSWORD_SECRET,
       { expiresIn: '15min' }
     );
 
@@ -35,10 +35,11 @@ const forgotPassword = async (req, res) => {
       text: `Reset Link: ${process.env.CLIENT_URL}/resetPassword/${user._id}/${resetToken}`
     })
 
-    await Users.updateOne({ resetLink: resetToken })
-
-  
-    res.status(200).json({ message: `Forgot Password link sent` })
+    await Users.updateOne({ resetLink: resetToken });
+    res.status(200).json({ message: `Forgot Password link sent` })  
+  } catch (e) {
+    res.status(500).json(e);
+  }
 }
 
 module.exports = {
