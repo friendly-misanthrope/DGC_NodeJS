@@ -54,6 +54,8 @@ app.use('/refresh', require('./routes/refresh'));
 app.use('/logout', require('./routes/logout'));
 // Forgot Password
 app.use('/forgotPassword', require('./routes/forgotPassword'));
+// Reset Password
+app.use('/resetPassword', require('./routes/resetPassword'));
 
 /* PROTECTED ROUTES */
 // employees
