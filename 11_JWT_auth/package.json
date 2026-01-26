@@ -13,7 +13,7 @@
     "0": "Use Intl.DateTimeFormat instead of Date-FNS for date formatting"
   },
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "date-fns": "^3.3.1",
